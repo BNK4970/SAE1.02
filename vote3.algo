@@ -5,12 +5,38 @@
     - type de scrutin
     - quotient électoral
     - seuil de représentativité (factultatif, généralement 5%)
-    
+
     1 électeur = 1 voix
     quotient électoral = total des voix / nb de sièges
     repartition des sièges par quotient électoral
 
 */
+
+algorithme systemeDeVote3v1
+debut
+    // ----- PREDERTERMINER -----
+    // nbSiege: nombre total de sièges
+    afficher("Entrez le nombre total de sièges: ");
+    saisir(nbSiege);
+    ligne_suivante;
+    // typeScrutin: type de scrutin
+    afficher("Entrez le type de scrutin A, B ou C: ");
+    saisir(typeScrutin);
+    ligne_suivante;
+
+    //  seuilRepr: seuil de représentativité
+    afficher("Entrez le seuil de représentativité en pourcentage (facultatif): ");
+    saisir(seuilRepr);
+    ligne_suivante;
+
+    // arrondir le quotient électoral
+    afficher("Arrondir le quotient électoral au supérieur (O/N): ");
+    saisir(arrondirSup);
+    ligne_suivante;
+
+    // ----- CALCUL DU QUOTIENT ELECTORAL -----
+    declarer totalVoix : entier <- 0;
+fin
 
 algorithme systemeDeVote3
 debut
