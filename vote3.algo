@@ -1,0 +1,72 @@
+// ---------- Système de vote 3 ----------
+/*
+    PREDETERMINER:
+    - nb total de sièges
+    - type de scrutin
+    - quotient électoral
+    - seuil de représentativité (factultatif, généralement 5%)
+    
+    1 électeur = 1 voix
+    quotient électoral = total des voix / nb de sièges
+    repartition des sièges par quotient électoral
+
+*/
+
+algorithme systemeDeVote3
+debut
+    // Initialisation des listes de voix et de sièges
+    declarer voix : tableau[1..nbParti] de entier;
+    declarer sieges : tableau[1..nbParti] de entier;
+    pour(i variant_de 1 a nbParti)
+    faire
+        afficher("Entrez le nombre de voix pour le parti ", i, ": ");
+        saisir(voix[i]);
+        sieges[i] <- 0;
+    ffaire
+
+    // Calcul du quotient électoral | (nb de voix pour 1 siège)
+    declarer totalVoix : entier <- 0;
+    pour(i variant_de 1 a nbParti)
+    faire
+        totalVoix <- totalVoix + voix[i];
+    ffaire
+    declarer quotientElectoral : reel <- totalVoix / nbSiege;
+
+    // Attribution des sièges par quotient électoral
+    pour(i variant_de 1 a nbParti)
+    faire
+        sieges[i] <- voix[i] / quotientElectoral;
+        voix[i] <- voix[i] - (sieges[i] * quotientElectoral);
+    ffaire
+
+    // Répartition des sièges restants par la méthode du plus fort reste
+    declarer siegesRestants : entier <- nbSiege;
+    pour i de 1 a nbParti
+    faire
+        siegesRestants <- siegesRestants - sieges[i];
+    ffaire
+
+    tantque siegesRestants > 0
+    faire
+        declarer maxReste : reel <- -1;
+        declarer indexMaxReste : entier <- -1;
+        pour(i variant_de 1 a nbParti)
+     faire
+            si voix[i] > maxReste alors
+                maxReste <- voix[i];
+                indexMaxReste <- i;
+            finsi
+        finpour
+        sieges[indexMaxReste] <- sieges[indexMaxReste] + 1;
+        voix[indexMaxReste] <- 0;
+        siegesRestants <- siegesRestants - 1;
+    ffaire
+
+    // Affichage des résultats
+    pour(i variant_de 1 a nbParti)
+    faire
+        afficher("Parti ", i, " obtient ", sieges[i], " sièges.");
+        ligne_suivante;
+    ffaire
+    fin
+fin
